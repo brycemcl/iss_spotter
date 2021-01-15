@@ -9,12 +9,12 @@ describe('fetchCoordsByIP', () => {
       assert.strictEqual(error, null);
       done();
     });
-  });
+  }).timeout(5000);
   it('check that error on invalid ip', (done) => {
     fetchCoordsByIP("8.8.8.", (error, data) => {
       assert.strictEqual(data, null);
       assert.strictEqual(error, "Could not find location");
       done();
     });
-  });
+  }).timeout(5000);
 });

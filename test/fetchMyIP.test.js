@@ -9,5 +9,5 @@ describe('fetchMyIP', () => {
       assert.strictEqual(error, null);
       done();
     });
-  });
+  }).timeout(5000);
 });
