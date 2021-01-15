@@ -1,7 +1,6 @@
-const { promisify } = require('util');
-const fetchMyIP = promisify(require('./fetchMyIP').fetchMyIP);
-const fetchCoordsByIP = promisify(require('./fetchCoordsByIP').fetchCoordsByIP);
-const fetchISSFlyOverTimes = promisify(require('./fetchISSFlyOverTimes').fetchISSFlyOverTimes);
+const fetchMyIP = require('./fetchMyIP').fetchMyIP;
+const fetchCoordsByIP = require('./fetchCoordsByIP').fetchCoordsByIP;
+const fetchISSFlyOverTimes = require('./fetchISSFlyOverTimes').fetchISSFlyOverTimes;
 
 fetchMyIP()
   .then(fetchCoordsByIP)

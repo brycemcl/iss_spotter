@@ -1,7 +1,7 @@
 const { promisify } = require('util');
 const request = promisify(require("request"));
 
-const fetchCoordsByIP = function(ip, callback) {
+const fetchCoordsByIP = promisify(function (ip, callback) {
   request(`https://freegeoip.app/json/${ip}`)
     .then(({ body }) => {
       const { latitude, longitude } = JSON.parse(body);
@@ -18,6 +18,6 @@ const fetchCoordsByIP = function(ip, callback) {
       }
     );
 
-};
+});
 
 module.exports = { fetchCoordsByIP };

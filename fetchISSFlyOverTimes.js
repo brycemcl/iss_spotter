@@ -1,7 +1,7 @@
 const { promisify } = require('util');
 const request = promisify(require("request"));
 
-const fetchISSFlyOverTimes = function(latLong, callback) {
+const fetchISSFlyOverTimes = promisify(function (latLong, callback) {
   request(`http://api.open-notify.org/iss-pass.json?lat=${latLong.latitude}&lon=${latLong.longitude}`)
     .then(({ body }) => {
       return JSON.parse(body).response;
@@ -19,5 +19,5 @@ const fetchISSFlyOverTimes = function(latLong, callback) {
       }
     );
 
-};
+});
 module.exports = { fetchISSFlyOverTimes };

@@ -1,7 +1,7 @@
 const { promisify } = require('util');
 const request = promisify(require("request"));
 
-const fetchMyIP = function(callback) {
+const fetchMyIP = promisify(function (callback) {
   request(`https://api.ipify.org?format=json`)
     .then(({ body }) => {
       return JSON.parse(body).ip;
@@ -17,6 +17,6 @@ const fetchMyIP = function(callback) {
       }
     );
 
-};
+});
 
 module.exports = { fetchMyIP };
