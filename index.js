@@ -1,18 +1,19 @@
-const { fetchMyIP } = require('./fetchMyIP');
-const { fetchCoordsByIP } = require('./fetchCoordsByIP');
-const { fetchISSFlyOverTimes } = require('./fetchISSFlyOverTimes');
+const { promisify } = require('util');
+const fetchMyIP = promisify(require('./fetchMyIP').fetchMyIP);
+const fetchCoordsByIP = promisify(require('./fetchCoordsByIP').fetchCoordsByIP);
+const fetchISSFlyOverTimes = promisify(require('./fetchISSFlyOverTimes').fetchISSFlyOverTimes);
 
-fetchMyIP((error, ip) => {
-  if (error) {
-    console.log("It didn't work!", error);
-    return;
-  }
+fetchMyIP()
+  .then(fetchCoordsByIP)
+  .then(fetchISSFlyOverTimes)
+  .then((flyovers) => {
+    flyovers.forEach(flyover => {
+      const date = new Date(flyover.risetime * 1000);
+      console.log(`Next pass at ${date.toLocaleString('en-CA', { timeZone: 'America/Vancouver' })} for ${flyover.duration} seconds!`);
+    });
+  })
+  .catch((error) => {
+    console.log(error);
+  });
 
-  console.log('It worked! Returned IP:', ip);
-});
 
-
-
-
-
-fetchMyIP.js;
